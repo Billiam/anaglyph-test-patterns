@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      main,
+      footer {
+        margin: 0 auto;
+        max-width: 1000px;
+      }
+      table {
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+      td {
+        border: 20px solid white;
+        text-align: center;
+        margin-right: 5px;
+
+        width: 50px;
+        height: 50px;
+      }
+      body {
+        background-color: #333;
+        color: #fff;
+      }
+      footer {
+        margin-top: 20px;
+        font-size: 12px;
+      }
+      a {
+        color: #67b8ff;
+      }
+      a:visited {
+        color: #9c67ff;
+      }
+      .gradient {
+        background: linear-gradient(to bottom, currentColor, rgba(0,0,0,0));
+      }
+      .black {
+        color: #000;
+      }
+      .red {
+        color: #f00;
+      }
+      .green {
+        color: #0f0;
+      }
+      .blue {
+        color: #00f;
+      }
+
+
+      .red.green {
+        color: #ff0;
+      }
+      .red.blue {
+        color: #f0f;
+      }
+      .green.blue {
+        color: #0ff;
+      }
+
+      .black {
+        color: #000;
+      }
+      .white {
+        color: #fff;
+      }
+
+      tr {
+        background-color: currentColor;
+      }
+      .current {
+        vertical-align: top;
+      }
+      .current::before {
+        transform: rotate(90deg);
+        transform-origin: top left;
+        position: absolute;
+      }
+      .primary.black td,
+      .secondary.black td {
+        border-color: #000;
+        background-color: #000;
+      }
+      .primary.white td,
+      .secondary.white td {
+        border-color: #fff;
+        background-color: #fff;
+      }
+      .secondary.comp1 {
+        background-color: var(--component-color-1);
+      }
+      .secondary.comp1 td {
+        border-color: var(--component-color-1);
+        bockground: var(--component-color-1);;
+      }
+      .secondary.comp2 {
+        background-color: var(--component-color-2);
+      }
+      .secondary.comp2 td {
+        border-color: var(--component-color-2);
+        background-color: var(--component-color-2);
+      }
+
+     .primary-eye {
+        background-color: var(--primary-color);
+        margin-top: 2em;
+      }
+      .primary-eye td.current {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        content: var(--component-name-1);
+      }
+     .primary-eye td.current::before {
+        content: var(--component-name-1);
+      }
+
+     .secondary-eye {
+        background-color: var(--secondary-color);
+      }
+      .secondary-eye td.current {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+      }
+      .secondary-eye td.current::before {
+        transform: rotate(90deg);
+        content: var(--component-name-2);
+      }
+      .current {
+        font-weight: bold;
+        color: #fff;
+      }
+
+      .eye-chart {
+        padding: 10px;
+      }
+
+      #red_cyan:checked ~ * {
+        --primary-color: #f00;
+        --secondary-color: #0ff;
+        --component-color-1: #0f0;
+        --component-color-2: #00f;
+        --component-name-1: "Red";
+        --component-name-2: "Cyan";
+      }
+      #red_cyan:checked ~ .primary-eye .black .red {
+        background: transparent;
+      }
+      #red_cyan:checked ~ .primary-eye .white :not(.red) {
+        background: transparent
+      }
+      #red_cyan:checked ~ .secondary-eye .black .green,
+      #red_cyan:checked ~ .secondary-eye .black .blue {
+        background: transparent
+      }
+      #red_cyan:checked ~ .secondary-eye .comp1 :not(.red.green) {
+        background: transparent;
+      }
+      #red_cyan:checked ~ .secondary-eye .comp2 :not(.red.blue) {
+        background: transparent;
+      }
+      #red_cyan:checked ~ .secondary-eye .white :not(.green.blue) {
+        background: transparent;
+      }
+
+      #green_magenta:checked ~ * {
+        --primary-color: #0f0;
+        --secondary-color: #f0f;
+        --component-color-1: #f00;
+        --component-color-2: #00f;
+        --component-name-1: "Green";    
+        --component-name-2: "Magenta";
+      }
+      #green_magenta:checked ~ .primary-eye .black .green {
+        background: transparent;
+      }
+      #green_magenta:checked ~ .primary-eye .white :not(.green) {
+        background: transparent
+      }
+      #green_magenta:checked ~ .secondary-eye .black .red,
+      #green_magenta:checked ~ .secondary-eye .black .blue {
+        background: transparent
+      }
+      #green_magenta:checked ~ .secondary-eye .comp1 :not(.red.green) {
+        background: transparent;
+      }
+      #green_magenta:checked ~ .secondary-eye .comp2 :not(.green.blue) {
+        background: transparent;
+      }
+      #green_magenta:checked ~ .secondary-eye .white :not(.red.blue) {
+        background: transparent;
+      }
+
+      #amber_blue:checked ~ * {
+        --primary-color: #00f;
+        --secondary-color: #ff0;
+        --component-color-1: #f00;
+        --component-color-2: #0f0;
+        --component-name-1: "Blue";
+        --component-name-2: "Amber";
+      }
+      #amber_blue:checked ~ .secondary-eye td.current::before {
+        color: #000;
+      }
+      #amber_blue:checked ~ .primary-eye .black .blue {
+        background: transparent;
+      }
+      #amber_blue:checked ~ .primary-eye .white :not(.blue) {
+        background: transparent
+      }
+      #amber_blue:checked ~ .secondary-eye .black .red,
+      #amber_blue:checked ~ .secondary-eye .black .green {
+        background: transparent
+      }
+      #amber_blue:checked ~ .secondary-eye .comp1 :not(.red.blue) {
+        background: transparent;
+      }
+      #amber_blue:checked ~ .secondary-eye .comp2 :not(.green.blue) {
+        background: transparent;
+      }
+      #amber_blue:checked ~ .secondary-eye .white :not(.red.green) {
+        background: transparent;
+      }
+
+      .scale {
+        padding: 20px;
+        background-color: currentColor;
+        width: 600px;
+        overflow: hidden;
+        margin-top: 20px;
+      }
+      .wrapper {
+        position: relative;
+        display: flex;
+      }
+      .scale .primary {
+        margin-right: 20px;
+        color: var(--primary-color);
+      }
+      .scale .component {
+        background-color: #000;
+        width: 25%;
+        margin-right: 10px;
+        z-index: 20;
+      }
+      .scale .secondary {
+        color: var(--secondary-color);
+      }
+      
+      .scale .gradient {
+        height: 300px;
+      }
+
+      .tick {
+        z-index: 10;
+        width: calc(100% - 50px);
+        background-color: black;
+        height: 5px;
+        position: absolute;
+        left: 0;
+        transform: translateY(-2.5px);
+      }
+      .tick span {
+        position: absolute;
+        left: 100%;
+        top: -4px;
+        padding-left: 10px;
+        color: #000;
+        font-size: 12px;
+      }
+      .tick.t0 {
+        top: 0;
+       }
+      .tick.t1 {
+        top: 10%;
+       }
+      .tick.t2 {
+        top: 20%;
+      }
+      .tick.t3 {
+        top: 30%;
+      }
+      .tick.t4 {
+        top: 40%;
+      }
+      .tick.t5 {
+        top: 50%;
+      }
+      .tick.t6 {
+        top: 60%;
+      }
+      .tick.t7 {
+        top: 70%;
+      }
+      .tick.t8 {
+        top: 80%;
+      }
+      .tick.t9 {
+        top: 90%;
+      }
+      .tick.t10 {
+        top: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <input name="type" type="radio" id="red_cyan" checked /><label for="red_cyan">Red/Cyan</label><br>
+      <input name="type" type="radio" id="green_magenta" /><label for="green_magenta">Green/Magenta</label><br>
+      <input name="type" type="radio" id="amber_blue" /><label for="amber_blue">Amber/Blue</label>
+
+      <table class="primary-eye eye-chart">
+        <tr class="primary black">
+          <td class="white"></td>
+          <td class="green blue cyan gradient"></td>
+          <td class="red blue magenta gradient"></td>
+          <td class="blue gradient"></td>
+          <td class="red green gradient"></td>
+          <td class="green gradient"></td>
+          <td class="red gradient"></td>
+          <td class="black"></td>
+          <td class="current" rowspan=2></td>
+        </tr>
+        <tr class="primary white">
+          <td class="white"></td>
+          <td class="green blue gradient"></td>
+          <td class="red blue gradient"></td>
+          <td class="blue gradient"></td>
+          <td class="red green gradient"></td>
+          <td class="green gradient"></td>
+          <td class="red gradient"></td>
+          <td class="black"></td>
+        </tr>
+      </table>
+
+      <table class="secondary-eye eye-chart">
+        <tr class="secondary black">
+          <td class="white"></td>
+          <td class="green blue gradient"></td>
+          <td class="red blue gradient"></td>
+          <td class="blue gradient"></td>
+          <td class="red green gradient"></td>
+          <td class="green gradient"></td>
+          <td class="red gradient"></td>
+          <td class="black"></td>
+          <td class="current" rowspan=4></td>
+        </tr>
+        <tr class="secondary comp1">
+          <td class="white"></td>
+          <td class="green blue gradient"></td>
+          <td class="red blue gradient"></td>
+          <td class="blue gradient"></td>
+          <td class="red green gradient"></td>
+          <td class="green gradient"></td>
+          <td class="red gradient"></td>
+          <td class="black"></td>
+        </tr>
+        <tr class="secondary comp2">
+          <td class="white"></td>
+          <td class="green blue gradient"></td>
+          <td class="red blue gradient"></td>
+          <td class="blue gradient"></td>
+          <td class="red green gradient"></td>
+          <td class="green gradient"></td>
+          <td class="red gradient"></td>
+          <td class="black"></td>
+        </tr>
+        <tr class="secondary white">
+          <td class="white"></td>
+          <td class="green blue gradient"></td>
+          <td class="red blue gradient"></td>
+          <td class="blue gradient"></td>
+          <td class="red green gradient"></td>
+          <td class="green gradient"></td>
+          <td class="red gradient"></td>
+          <td class="black"></td>
+        </tr>
+
+      </table>
+
+      <div class="scale">
+        <div class="wrapper">
+          <div class="component">
+            <div class="red gradient"></div>
+          </div>
+          <div class="component">
+            <div class="green gradient"></div>          
+          </div>
+          <div class="component">
+            <div class="blue gradient"></div>          
+          </div>
+
+          <div class="tick t0"><span>100%</span></div>
+          <div class="tick t1"><span>90%</span></div>
+          <div class="tick t2"><span>80%</span></div>
+          <div class="tick t3"><span>70%</span></div>
+          <div class="tick t4"><span>60%</span></div>
+          <div class="tick t5"><span>50%</span></div>
+          <div class="tick t6"><span>40%</span></div>
+          <div class="tick t7"><span>30%</span></div>
+          <div class="tick t8"><span>20%</span></div>
+          <div class="tick t9"><span>10%</span></div>
+          <div class="tick t10"><span>0%</span></div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      Credits:
+      <a href="https://www.david-romeuf.fr/3D/Anaglyphes/BonCoupleEL/GoodCoupleMonitorGlassesAnaglyph.html">https://www.david-romeuf.fr/3D/Anaglyphes/BonCoupleEL/GoodCoupleMonitorGlassesAnaglyph.html</a><br>
+      <a href="https://www.flickr.com/photos/firrs/3225702120/in/photostream/">https://www.flickr.com/photos/firrs/3225702120/in/photostream/</a>
+
+    </footer>
+  </body>
+</html>
